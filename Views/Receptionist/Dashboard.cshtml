@@ -2,25 +2,296 @@
     ViewData["Title"] = "Receptionist Dashboard";
 }
 
-<h1>Receptionist Dashboard</h1>
+<div class="hms-page">
+    <div class="container">
 
-<p>Welcome, Receptionist.</p>
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Avenger Care and Hospital
+                </span>
 
-<hr />
+                <h1 class="hms-title mt-1">
+                    Receptionist Dashboard
+                </h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <h4>Patients</h4>
-        <p>Register and manage patients.</p>
-    </div>
+                <p class="hms-subtitle">
+                    Manage patients, appointments and front-desk activities
+                    from one place.
+                </p>
+            </div>
 
-    <div class="col-md-4">
-        <h4>Appointments</h4>
-        <p>Schedule and manage appointments.</p>
-    </div>
+            <div>
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    <span class="me-1">●</span> Reception Desk
+                </span>
+            </div>
+        </div>
 
-    <div class="col-md-4">
-        <h4>Patient Search</h4>
-        <p>Search patient records.</p>
+        <!-- Quick Statistics -->
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+                    <div class="hms-stat-icon">
+                        👤
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Patient Management
+                        </div>
+
+                        <div class="hms-stat-value">
+                            Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+                    <div class="hms-stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Appointments
+                        </div>
+
+                        <div class="hms-stat-value">
+                            Management
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+                    <div class="hms-stat-icon">
+                        🔎
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Patient Records
+                        </div>
+
+                        <div class="hms-stat-value">
+                            Search
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main Modules -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+                <div>
+                    <h4 class="mb-1">Reception Desk</h4>
+
+                    <p class="text-muted mb-0">
+                        Select an operation to continue.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Patient Management -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                👤
+                            </div>
+
+                            <h5>
+                                Patient Management
+                            </h5>
+
+                            <p>
+                                Register new patients, update information,
+                                view records and manage patient data.
+                            </p>
+
+                            <a asp-controller="Patient"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-primary w-100">
+                                Manage Patients
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Appointment Management -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                📅
+                            </div>
+
+                            <h5>
+                                Appointment Management
+                            </h5>
+
+                            <p>
+                                Schedule appointments, review bookings
+                                and manage appointment status.
+                            </p>
+
+                            <a asp-controller="Appointment"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                Manage Appointments
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Patient Search -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                🔎
+                            </div>
+
+                            <h5>
+                                Patient Search
+                            </h5>
+
+                            <p>
+                                Quickly locate patient records using
+                                name, phone number or email.
+                            </p>
+
+                            <a asp-controller="Patient"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                Search Records
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Appointment List -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                📋
+                            </div>
+
+                            <h5>
+                                Today's Appointments
+                            </h5>
+
+                            <p>
+                                View the daily appointment schedule
+                                and assist patients at the reception desk.
+                            </p>
+
+                            <a asp-controller="Appointment"
+                               asp-action="Index"
+                               asp-route-date="@DateTime.Today.ToString("yyyy-MM-dd")"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                View Schedule
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Registration -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                📝
+                            </div>
+
+                            <h5>
+                                New Registration
+                            </h5>
+
+                            <p>
+                                Create a new patient record and generate
+                                the patient's initial system account.
+                            </p>
+
+                            <a asp-controller="Patient"
+                               asp-action="Create"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                Register Patient
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Future Module -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card hms-module-disabled">
+
+                            <div class="hms-module-icon">
+                                📊
+                            </div>
+
+                            <h5>
+                                Reception Reports
+                            </h5>
+
+                            <p>
+                                Review reception activity and operational
+                                reports.
+                            </p>
+
+                            <button class="btn hms-btn hms-btn-outline w-100"
+                                    disabled>
+                                Coming Soon
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer Information -->
+        <div class="mt-4 text-center">
+
+            <p class="text-muted small mb-0">
+                HMS Reception Desk • Patient and appointment administration
+            </p>
+
+        </div>
+
     </div>
 </div>

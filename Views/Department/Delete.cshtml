@@ -1,0 +1,144 @@
+﻿@model HospitalManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Delete Department";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Delete Department
+                </h1>
+
+                <p class="hms-subtitle">
+                    Review the department before removing it.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Back to Departments
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="p-4">
+
+                <div class="alert alert-warning">
+
+                    <strong>Confirm Department Deletion</strong>
+
+                    <div class="mt-2">
+                        You are about to delete
+                        <strong>@Model.DepartmentName</strong>.
+                    </div>
+
+                    @if (Model.Doctors.Any())
+                    {
+                        <div class="mt-2">
+                            This department currently has
+                            <strong>@Model.Doctors.Count doctor(s)</strong>
+                            assigned to it and cannot be deleted.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-2">
+                            This department has no doctors assigned to it.
+                        </div>
+                    }
+
+                </div>
+
+
+                <div class="row g-4 mb-4">
+
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            DEPARTMENT
+                        </div>
+
+                        <strong>
+                            @Model.DepartmentName
+                        </strong>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            LOCATION
+                        </div>
+
+                        <span>
+                            @(Model.Location ?? "—")
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            ASSIGNED DOCTORS
+                        </div>
+
+                        <span>
+                            @Model.Doctors.Count
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                @if (!Model.Doctors.Any())
+                {
+                    <form asp-action="Delete"
+                          method="post">
+
+                        <input type="hidden"
+                               asp-for="DepartmentId" />
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this department?');">
+                                Delete Department
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Return to Departments
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

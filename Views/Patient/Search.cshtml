@@ -1,0 +1,182 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Patient>
+
+@{
+    ViewData["Title"] = "Patient Search";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Reception Desk
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Patient Search
+                </h1>
+
+                <p class="hms-subtitle">
+                    Search and view registered patient information.
+                </p>
+            </div>
+
+            <a asp-controller="Receptionist"
+               asp-action="Dashboard"
+               class="btn hms-btn hms-btn-outline">
+                ← Dashboard
+            </a>
+        </div>
+
+        <!-- Search Card -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+                <div>
+                    <h5 class="mb-1">Search Patient Records</h5>
+
+                    <p class="text-muted mb-0">
+                        Search by patient name, phone number or email address.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4">
+
+                <form asp-action="Search"
+                      method="get"
+                      class="row g-3">
+
+                    <div class="col-md-10">
+                        <label class="form-label fw-semibold">
+                            Search
+                        </label>
+
+                        <input type="text"
+                               name="search"
+                               value="@ViewBag.Search"
+                               class="form-control hms-search"
+                               placeholder="Enter name, phone or email..." />
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary w-100">
+                            Search
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+                <div>
+                    <h5 class="mb-1">Patient Records</h5>
+
+                    <p class="text-muted mb-0">
+                        Read-only patient information.
+                    </p>
+                </div>
+
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    @Model.Count() Records
+                </span>
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6"
+                                    class="text-center py-5 text-muted">
+
+                                    <div class="mb-2 fs-3">
+                                        🔎
+                                    </div>
+
+                                    No patient records found.
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var patient in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @patient.FullName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @patient.DateOfBirth.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @patient.Gender
+                                    </td>
+
+                                    <td>
+                                        @patient.Phone
+                                    </td>
+
+                                    <td>
+                                        @(patient.Email ?? "—")
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="SearchDetails"
+                                           asp-route-id="@patient.PatientId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            View Details
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4 text-center">
+            <p class="text-muted small mb-0">
+                Patient Search • Read-only access
+            </p>
+        </div>
+
+    </div>
+</div>

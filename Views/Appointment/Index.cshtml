@@ -1,0 +1,424 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Appointment Management";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Hospital Operations
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Appointment Management
+                </h1>
+
+                <p class="hms-subtitle">
+                    Schedule, monitor and manage patient appointments.
+                </p>
+            </div>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
+            {
+                <a asp-action="Create"
+                   class="btn hms-btn hms-btn-primary">
+                    + Schedule Appointment
+                </a>
+            }
+        </div>
+
+
+        <!-- Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
+        <!-- Error Message -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-warning hms-alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+
+        <!-- Filters -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h5 class="mb-1">
+                        Appointment Search
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Search and filter appointments by patient, doctor, date or status.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <form asp-action="Index" method="get">
+
+                    <div class="row g-3">
+
+                        <!-- Search -->
+                        <div class="col-lg-5 col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Search
+                            </label>
+
+                            <input type="text"
+                                   name="search"
+                                   value="@ViewBag.Search"
+                                   class="form-control hms-search"
+                                   placeholder="Patient or doctor name..." />
+
+                        </div>
+
+
+                        <!-- Status -->
+                        <div class="col-lg-3 col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Status
+                            </label>
+
+                            <select name="status"
+                                    class="form-select">
+
+                                <option value="">
+                                    All Statuses
+                                </option>
+
+                                @if (ViewBag.Status == "Scheduled")
+                                {
+                                    <option value="Scheduled" selected>
+                                        Scheduled
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="Scheduled">
+                                        Scheduled
+                                    </option>
+                                }
+
+                                @if (ViewBag.Status == "Confirmed")
+                                {
+                                    <option value="Confirmed" selected>
+                                        Confirmed
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="Confirmed">
+                                        Confirmed
+                                    </option>
+                                }
+
+                                @if (ViewBag.Status == "Completed")
+                                {
+                                    <option value="Completed" selected>
+                                        Completed
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="Completed">
+                                        Completed
+                                    </option>
+                                }
+
+                                @if (ViewBag.Status == "Cancelled")
+                                {
+                                    <option value="Cancelled" selected>
+                                        Cancelled
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="Cancelled">
+                                        Cancelled
+                                    </option>
+                                }
+
+                                @if (ViewBag.Status == "No Show")
+                                {
+                                    <option value="No Show" selected>
+                                        No Show
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="No Show">
+                                        No Show
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Date -->
+                        <div class="col-lg-2 col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Date
+                            </label>
+
+                            <input type="date"
+                                   name="date"
+                                   value="@ViewBag.Date"
+                                   class="form-control" />
+
+                        </div>
+
+
+                        <!-- Search Button -->
+                        <div class="col-lg-2 col-md-6 d-flex align-items-end">
+
+                            <button type="submit"
+                                    class="btn hms-btn hms-btn-primary w-100">
+                                Search
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Appointment Table -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+
+                    <h5 class="mb-1">
+                        Appointment Records
+                    </h5>
+
+                    <p class="text-muted mb-0">
+
+                        @if (User.IsInRole("Doctor"))
+                        {
+                            <span>
+                                Your assigned appointments.
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Hospital appointment schedule.
+                            </span>
+                        }
+
+                    </p>
+
+                </div>
+
+
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    @Model.Count() Appointments
+                </span>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table align-middle">
+
+                    <thead>
+
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+
+                                <td colspan="6"
+                                    class="text-center py-5 text-muted">
+
+                                    <div class="fs-3 mb-2">
+                                        📅
+                                    </div>
+
+                                    No appointments found.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var appointment in Model)
+                            {
+                                <tr>
+
+                                    <!-- Patient -->
+                                    <td>
+                                        <strong>
+                                            @(appointment.Patient?.FullName ?? "Unknown")
+                                        </strong>
+                                    </td>
+
+
+                                    <!-- Doctor -->
+                                    <td>
+                                        @(appointment.Doctor?.FullName ?? "Unknown")
+                                    </td>
+
+
+                                    <!-- Date -->
+                                    <td>
+                                        @appointment.AppointmentDate.ToString("dd MMM yyyy")
+                                    </td>
+
+
+                                    <!-- Time -->
+                                    <td>
+                                        @DateTime.Today
+                                        .Add(appointment.AppointmentTime)
+                                        .ToString("hh:mm tt")
+                                    </td>
+
+
+                                    <!-- Status -->
+                                    <td>
+
+                                        @if (appointment.Status == "Scheduled")
+                                        {
+                                            <span class="badge bg-primary-subtle text-primary">
+                                                Scheduled
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Confirmed")
+                                        {
+                                            <span class="badge bg-success-subtle text-success">
+                                                Confirmed
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Completed")
+                                        {
+                                            <span class="badge bg-info-subtle text-info">
+                                                Completed
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Cancelled")
+                                        {
+                                            <span class="badge bg-danger-subtle text-danger">
+                                                Cancelled
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning-subtle text-warning">
+                                                @appointment.Status
+                                            </span>
+                                        }
+
+                                    </td>
+
+
+                                    <!-- Actions -->
+                                    <td class="text-end">
+
+                                        <!-- View -->
+                                        <a asp-action="Details"
+                                           asp-route-id="@appointment.AppointmentId"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            View
+                                        </a>
+
+
+                                        <!-- Edit -->
+                                        @if (User.IsInRole("Admin") ||
+                                             User.IsInRole("Receptionist"))
+                                        {
+                                            @if (appointment.Status != "Cancelled" &&
+                                                 appointment.Status != "Completed")
+                                            {
+                                                <a asp-action="Edit"
+                                                   asp-route-id="@appointment.AppointmentId"
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    Edit
+                                                </a>
+                                            }
+                                        }
+
+
+                                        <!-- Cancel -->
+                                        @if (User.IsInRole("Admin") ||
+                                             User.IsInRole("Receptionist"))
+                                        {
+                                            @if (appointment.Status != "Cancelled" &&
+                                                 appointment.Status != "Completed")
+                                            {
+                                                <form asp-action="CancelAppointment"
+                                                      asp-route-id="@appointment.AppointmentId"
+                                                      method="post"
+                                                      class="d-inline">
+
+                                                    @Html.AntiForgeryToken()
+
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Are you sure you want to cancel this appointment?');">
+                                                        Cancel
+                                                    </button>
+
+                                                </form>
+                                            }
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

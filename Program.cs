@@ -54,6 +54,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     await RoleSeeder.SeedAsync(services);
+
+    await AdminSeeder.SeedAsync(services);
 }
 app.MapRazorPages();
 

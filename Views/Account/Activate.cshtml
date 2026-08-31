@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Activate Patient Account";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="hms-card">
+
+                    <div class="hms-card-header">
+                        <h2 class="hms-title">Activate Patient Account</h2>
+                        <p class="hms-subtitle">
+                            Enter the activation details provided by the hospital.
+                        </p>
+                    </div>
+
+                    <form asp-action="Activate" method="post">
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input name="email"
+                                   type="email"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Activation Code</label>
+                            <input name="activationCode"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary w-100">
+                            Activate Account
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

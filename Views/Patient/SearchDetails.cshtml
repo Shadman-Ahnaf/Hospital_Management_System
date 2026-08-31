@@ -1,0 +1,184 @@
+﻿@model HospitalManagementSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Patient Search
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Patient Details
+                </h1>
+
+                <p class="hms-subtitle">
+                    View registered patient information.
+                </p>
+            </div>
+
+            <a asp-action="Search"
+               class="btn hms-btn hms-btn-outline">
+                ← Back to Search
+            </a>
+
+        </div>
+
+        <!-- Patient Information -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        @Model.FullName
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Patient ID: #@Model.PatientId
+                    </p>
+                </div>
+
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    Read Only
+                </span>
+
+            </div>
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Full Name
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @Model.FullName
+                        </div>
+
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Date of Birth
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @Model.DateOfBirth.ToString("dd MMMM yyyy")
+                        </div>
+
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Gender
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @Model.Gender
+                        </div>
+
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Phone Number
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @Model.Phone
+                        </div>
+
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Email Address
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.Email ?? "Not provided")
+                        </div>
+
+                    </div>
+
+                    <!-- Blood Group -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Blood Group
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.BloodGroup ?? "Not provided")
+                        </div>
+
+                    </div>
+
+                    <!-- Emergency Contact -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Emergency Contact
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.EmergencyContact ?? "Not provided")
+                        </div>
+
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Address
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.Address ?? "Not provided")
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="border-top p-3 d-flex justify-content-between align-items-center">
+
+                <small class="text-muted">
+                    This page provides read-only access to patient information.
+                </small>
+
+                <a asp-action="Search"
+                   class="btn hms-btn hms-btn-outline">
+                    Back to Search
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

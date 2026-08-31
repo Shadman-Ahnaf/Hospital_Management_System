@@ -1,0 +1,240 @@
+﻿@{
+    ViewData["Title"] = "Patient Dashboard";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Hospital Management System
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Patient Dashboard
+                </h1>
+
+                <p class="hms-subtitle">
+                    Welcome back,
+                    <strong>@ViewBag.PatientName</strong>.
+                    Manage your appointments, medical records and prescriptions.
+                </p>
+            </div>
+
+            <div>
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    <span class="me-1">●</span>
+                    Patient Portal
+                </span>
+            </div>
+
+        </div>
+
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-warning hms-alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+
+        <!-- Statistics -->
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+
+                    <div class="hms-stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Total Appointments
+                        </div>
+
+                        <div class="hms-stat-value">
+                            @ViewBag.TotalAppointments
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+
+                    <div class="hms-stat-icon">
+                        🕒
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Upcoming
+                        </div>
+
+                        <div class="hms-stat-value">
+                            @ViewBag.UpcomingAppointments
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="hms-stat-card">
+
+                    <div class="hms-stat-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <div class="hms-stat-label">
+                            Completed
+                        </div>
+
+                        <div class="hms-stat-value">
+                            @ViewBag.CompletedAppointments
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Patient Services -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        My Health
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Access your hospital information and records.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Appointments -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                📅
+                            </div>
+
+                            <h5>
+                                My Appointments
+                            </h5>
+
+                            <p>
+                                View your scheduled and previous
+                                hospital appointments.
+                            </p>
+
+                            <a asp-controller="PatientPortal"
+                               asp-action="Appointments"
+                               class="btn hms-btn hms-btn-primary w-100">
+                                View Appointments
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Medical Records -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                📋
+                            </div>
+
+                            <h5>
+                                Medical Records
+                            </h5>
+
+                            <p>
+                                View your diagnosis and treatment
+                                history recorded by doctors.
+                            </p>
+
+                            <a asp-controller="PatientPortal"
+                               asp-action="MedicalRecords"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                View Medical Records
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Prescriptions -->
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="hms-module-card">
+
+                            <div class="hms-module-icon">
+                                💊
+                            </div>
+
+                            <h5>
+                                Prescriptions
+                            </h5>
+
+                            <p>
+                                View medicines prescribed by your
+                                doctors.
+                            </p>
+
+                            <a asp-controller="PatientPortal"
+                               asp-action="Prescriptions"
+                               class="btn hms-btn hms-btn-outline w-100">
+                                View Prescriptions
+                                <span class="ms-2">→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-4 text-center">
+
+            <p class="text-muted small mb-0">
+                HMS Patient Portal • Your healthcare information
+            </p>
+
+        </div>
+
+    </div>
+</div>

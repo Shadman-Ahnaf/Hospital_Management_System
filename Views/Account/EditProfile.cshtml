@@ -1,0 +1,149 @@
+﻿@model HospitalManagementSystem.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header mb-4">
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Account
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Edit Profile
+                </h1>
+
+                <p class="hms-subtitle">
+                    Update your personal account information.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="hms-card">
+
+                    <div class="hms-card-header">
+                        <div>
+                            <h4 class="mb-1">
+                                Personal Information
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Update the information that can be changed from your profile.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="p-4">
+
+                        <form asp-action="EditProfile"
+                              method="post">
+
+                            @Html.AntiForgeryToken()
+
+
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div asp-validation-summary="All"
+                                     class="alert alert-danger">
+                                </div>
+                            }
+
+
+                            <!-- Full Name -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+                                    Full Name
+                                </label>
+
+                                <input type="text"
+                                       name="fullName"
+                                       value="@Model.FullName"
+                                       class="form-control"
+                                       maxlength="100"
+                                       required />
+
+                            </div>
+
+
+                            <!-- Email -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+                                    Email Address
+                                </label>
+
+                                <input type="email"
+                                       value="@Model.Email"
+                                       class="form-control"
+                                       readonly />
+
+                                <div class="form-text">
+                                    Email address cannot be changed from this page.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Phone -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+                                    Phone Number
+                                </label>
+
+                                <input type="text"
+                                       name="phoneNumber"
+                                       value="@Model.PhoneNumber"
+                                       class="form-control"
+                                       maxlength="30" />
+
+                            </div>
+
+
+                            <!-- Buttons -->
+
+                            <div class="d-flex gap-2">
+
+                                <button type="submit"
+                                        class="btn hms-btn hms-btn-primary">
+                                    Save Changes
+                                </button>
+
+                                <a asp-controller="Account"
+                                   asp-action="Profile"
+                                   class="btn btn-outline-secondary">
+                                    Cancel
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

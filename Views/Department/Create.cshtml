@@ -1,0 +1,142 @@
+﻿@model HospitalManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Add Department";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Add Department
+                </h1>
+
+                <p class="hms-subtitle">
+                    Create a new hospital department.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Back to Departments
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Department Information
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Enter the basic information for this department.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form asp-action="Create"
+                  method="post">
+
+                <div class="p-4">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="DepartmentName"
+                                   class="form-label">
+                                Department Name
+                            </label>
+
+                            <input asp-for="DepartmentName"
+                                   class="form-control"
+                                   placeholder="e.g. Cardiology" />
+
+                            <span asp-validation-for="DepartmentName"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Location"
+                                   class="form-label">
+                                Location
+                            </label>
+
+                            <input asp-for="Location"
+                                   class="form-control"
+                                   placeholder="e.g. Building A, Floor 2" />
+
+                            <span asp-validation-for="Location"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="col-md-12">
+
+                            <label asp-for="Description"
+                                   class="form-label">
+                                Description
+                            </label>
+
+                            <textarea asp-for="Description"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter department description..."></textarea>
+
+                            <span asp-validation-for="Description"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4 d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Save Department
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -3,48 +3,453 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HospitalManagementSystem</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HospitalManagementSystem.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HospitalManagementSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - HospitalManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <title>@ViewData["Title"] - Avenger CARE AND HOSPITAL</title>
+
+    <script type="importmap"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Existing site styles -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!-- HMS custom styles -->
+    <link rel="stylesheet" href="~/css/hms.css" asp-append-version="true" />
+
+    <!-- Generated project styles -->
+    <link rel="stylesheet"
+          href="~/HospitalManagementSystem.styles.css"
+          asp-append-version="true" />
+
+    <!-- =========================================================
+         GLOBAL USER MENU + THEME STYLES
+         ========================================================= -->
+
+    <style>
+            /* User menu */
+            .hms-user-menu {
+                position: relative;
+            }
+
+            .hms-user-button {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                border: none;
+                background: transparent;
+                color: white;
+                padding: 6px 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+                .hms-user-button:hover {
+                    background: rgba(255, 255, 255, 0.10);
+                }
+
+            .hms-user-icon {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.15);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+            }
+
+            .hms-user-name {
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            .hms-user-dropdown {
+                min-width: 220px;
+                padding: 8px;
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+                .hms-user-dropdown .dropdown-item {
+                    border-radius: 8px;
+                    padding: 10px 12px;
+                }
+
+                    .hms-user-dropdown .dropdown-item:hover {
+                        background-color: #f1f3f5;
+                    }
+
+            .hms-user-info {
+                padding: 10px 12px;
+                border-bottom: 1px solid #e9ecef;
+                margin-bottom: 6px;
+            }
+
+            .hms-user-info-name {
+                font-weight: 600;
+                font-size: 14px;
+            }
+
+            .hms-user-info-role {
+                font-size: 12px;
+                color: #6c757d;
+            }
+
+            .hms-logout-button {
+                color: #dc3545 !important;
+            }
+
+                .hms-logout-button:hover {
+                    background-color: #fff0f1 !important;
+                }
+
+            /* Dark mode */
+            body.hms-dark-mode {
+                background-color: #121212;
+                color: #e9ecef;
+            }
+
+                body.hms-dark-mode .hms-card,
+                body.hms-dark-mode .hms-stat-card,
+                body.hms-dark-mode .hms-module-card {
+                    background-color: #1e1e1e;
+                    color: #e9ecef;
+                }
+
+                body.hms-dark-mode .text-muted {
+                    color: #adb5bd !important;
+                }
+
+                body.hms-dark-mode .hms-title,
+                body.hms-dark-mode h1,
+                body.hms-dark-mode h2,
+                body.hms-dark-mode h3,
+                body.hms-dark-mode h4,
+                body.hms-dark-mode h5,
+                body.hms-dark-mode h6 {
+                    color: #f8f9fa;
+                }
+
+                body.hms-dark-mode .table {
+                    color: #e9ecef;
+                }
+
+                body.hms-dark-mode .form-control,
+                body.hms-dark-mode .form-select {
+                    background-color: #252525;
+                    color: #f8f9fa;
+                    border-color: #444;
+                }
+
+                    body.hms-dark-mode .form-control::placeholder {
+                        color: #999;
+                    }
+
+                body.hms-dark-mode .hms-footer {
+                    background-color: #181818;
+                }
+
+                /* Dark mode dropdown */
+                body.hms-dark-mode .hms-user-dropdown {
+                    background-color: #1e1e1e;
+                    color: #f8f9fa;
+                }
+
+                    body.hms-dark-mode .hms-user-dropdown .dropdown-item {
+                        color: #e9ecef;
+                    }
+
+                        body.hms-dark-mode .hms-user-dropdown .dropdown-item:hover {
+                            background-color: #2c2c2c;
+                        }
+
+                body.hms-dark-mode .hms-user-info {
+                    border-color: #444;
+                }
+
+                body.hms-dark-mode .hms-logout-button:hover {
+                    background-color: #3a2023 !important;
+                }
+    </style>
+</head>
+
+<body class="@(ViewData["FullScreen"] != null ? "hms-fullscreen" : "")">
+
+    @if (ViewData["FullScreen"] == null)
+    {
+        <!-- Navigation -->
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-dark hms-navbar shadow-sm">
+                <div class="container-fluid">
+
+                    <a class="navbar-brand hms-brand"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Index">
+
+                        <span class="hms-brand-icon">+</span>
+
+                        <span class="hms-brand-text">
+                            <strong>Avenger Care</strong>
+                            <small>AND HOSPITAL</small>
+                        </span>
+
+                    </a>
+
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target=".navbar-collapse"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+
+                        <span class="navbar-toggler-icon"></span>
+
+                    </button>
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                        <ul class="navbar-nav ms-auto align-items-center">
+
+                            <!-- EXISTING HOME LINK -->
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Home"
+                                   asp-action="Index">
+                                    Home
+                                </a>
+                            </li>
+
+                            <!-- EXISTING PATIENT LINK -->
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Patient"
+                                   asp-action="Index">
+                                    Patients
+                                </a>
+                            </li>
+
+                            <!-- EXISTING PRIVACY LINK -->
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Home"
+                                   asp-action="Privacy">
+                                    Privacy
+                                </a>
+                            </li>
+
+
+                            <!-- =================================================
+                                 GLOBAL USER MENU
+                                 ================================================= -->
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown hms-user-menu ms-2">
+
+                                    <button class="hms-user-button dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+
+                                        <span class="hms-user-icon">
+                                            👤
+                                        </span>
+
+                                        <span class="hms-user-name">
+                                            @User.Identity.Name
+                                        </span>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end hms-user-dropdown">
+
+                                        <!-- User information -->
+
+                                        <li>
+                                            <div class="hms-user-info">
+
+                                                <div class="hms-user-info-name">
+                                                    @User.Identity.Name
+                                                </div>
+
+                                                <div class="hms-user-info-role">
+
+                                                    @if (User.IsInRole("Admin"))
+                                                    {
+                                                        <span>Administrator</span>
+                                                    }
+                                                    else if (User.IsInRole("Doctor"))
+                                                    {
+                                                        <span>Doctor</span>
+                                                    }
+                                                    else if (User.IsInRole("Receptionist"))
+                                                    {
+                                                        <span>Receptionist</span>
+                                                    }
+                                                    else if (User.IsInRole("Patient"))
+                                                    {
+                                                        <span>Patient</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>User</span>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+
+                                        <!-- Profile -->
+
+                                        <li>
+                                            <a class="dropdown-item"
+                                               asp-controller="Account"
+                                               asp-action="Profile">
+
+                                                👤
+                                                <span class="ms-2">
+                                                    Profile
+                                                </span>
+
+                                            </a>
+                                        </li>
+
+
+                                        <!-- Settings -->
+
+                                        <li>
+                                            <a class="dropdown-item"
+                                               asp-controller="Account"
+                                               asp-action="Settings">
+
+                                                ⚙️
+                                                <span class="ms-2">
+                                                    Settings
+                                                </span>
+
+                                            </a>
+                                        </li>
+
+
+                                        <li>
+                                            <hr class="dropdown-divider" />
+                                        </li>
+
+
+                                        <!-- Logout -->
+
+                                        <li>
+
+                                            <form asp-controller="Account"
+                                                  asp-action="Logout"
+                                                  method="post">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="dropdown-item hms-logout-button">
+
+                                                    🚪
+                                                    <span class="ms-2">
+                                                        Logout
+                                                    </span>
+
+                                                </button>
+
+                                            </form>
+
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+    }
+
+    <!-- Main Content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+
+    @if (ViewData["FullScreen"] == null)
+    {
+        <!-- Footer -->
+        <footer class="hms-footer">
+            <div class="container">
+
+                <span>
+                    &copy; 2026 Hospital Management System
+                </span>
+
+                <span>
+                    <a asp-controller="Home"
+                       asp-action="Privacy">
+                        Privacy
+                    </a>
+                </span>
+
+            </div>
+        </footer>
+    }
+
+
+    <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <!-- =========================================================
+         GLOBAL THEME SCRIPT
+         ========================================================= -->
+
+    <script>
+
+            // Apply saved theme when page loads
+            document.addEventListener("DOMContentLoaded", function() {
+
+                const savedTheme =
+                    localStorage.getItem("hms-theme");
+
+                if (savedTheme === "dark") {
+                    document.body.classList.add("hms-dark-mode");
+                }
+
+            });
+
+
+            // Global function for Settings page
+            function toggleHmsTheme() {
+
+                document.body.classList.toggle("hms-dark-mode");
+
+                const isDark =
+                    document.body.classList.contains("hms-dark-mode");
+
+                localStorage.setItem(
+                    "hms-theme",
+                    isDark ? "dark" : "light"
+                );
+            }
+
+    </script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

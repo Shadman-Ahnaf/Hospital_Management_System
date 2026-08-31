@@ -1,0 +1,156 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Appointment>
+
+@{
+    ViewData["Title"] = "My Appointments";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    My Appointments
+                </h1>
+
+                <p class="hms-subtitle">
+                    View your scheduled and previous hospital appointments.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        Appointment History
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Your appointments are listed below.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+
+                                <td colspan="6"
+                                    class="text-center py-5 text-muted">
+
+                                    You do not have any appointments yet.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var appointment in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @appointment.AppointmentDate
+                                        .ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @appointment.AppointmentTime
+                                    </td>
+
+                                    <td>
+                                        @(appointment.Doctor?.FullName ?? "Not Assigned")
+                                    </td>
+
+                                    <td>
+                                        @(appointment.Doctor?.Department?.DepartmentName
+                                            ?? "Not Assigned")
+                                    </td>
+
+                                    <td>
+                                        @if (appointment.Status == "Scheduled")
+                                        {
+                                            <span class="badge bg-primary">
+                                                Scheduled
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Completed")
+                                        {
+                                            <span class="badge bg-success">
+                                                Completed
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Cancelled")
+                                        {
+                                            <span class="badge bg-danger">
+                                                Cancelled
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @appointment.Status
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="MyAppointmentDetails"
+                                           asp-route-id="@appointment.AppointmentId"
+                                           class="btn btn-sm btn-outline-primary">
+
+                                            View
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,181 @@
+﻿@model HospitalManagementSystem.Models.Appointment
+
+@{
+    ViewData["Title"] = "Cancel Appointment";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Cancel Appointment
+                </h1>
+
+                <p class="hms-subtitle">
+                    Review the appointment before cancelling it.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Back to Appointments
+            </a>
+
+        </div>
+
+
+        <!-- Confirmation Card -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Appointment Cancellation
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        This appointment will be marked as cancelled.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Patient -->
+                    <div class="col-md-6">
+
+                        <div class="text-muted small">
+                            PATIENT
+                        </div>
+
+                        <h5 class="mb-0">
+                            @Model.Patient?.FullName
+                        </h5>
+
+                    </div>
+
+
+                    <!-- Doctor -->
+                    <div class="col-md-6">
+
+                        <div class="text-muted small">
+                            DOCTOR
+                        </div>
+
+                        <h5 class="mb-0">
+                            @Model.Doctor?.FullName
+                        </h5>
+
+                    </div>
+
+
+                    <!-- Date -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            DATE
+                        </div>
+
+                        <strong>
+                            @Model.AppointmentDate.ToString("dd MMM yyyy")
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Time -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            TIME
+                        </div>
+
+                        <strong>
+                            @Model.AppointmentTime
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            CURRENT STATUS
+                        </div>
+
+                        <span class="badge bg-primary">
+                            @Model.Status
+                        </span>
+
+                    </div>
+
+
+                    <!-- Reason -->
+                    <div class="col-12">
+
+                        <div class="text-muted small">
+                            REASON FOR VISIT
+                        </div>
+
+                        <p class="mb-0">
+                            @(Model.Reason ?? "No reason provided.")
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Warning -->
+                <div class="alert alert-warning mt-4">
+
+                    <strong>Are you sure?</strong>
+
+                    <div class="mt-1">
+                        This appointment will be marked as
+                        <strong>Cancelled</strong>.
+                        It will not be permanently deleted from the database.
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+                <form asp-action="Delete"
+                      method="post">
+
+                    <input type="hidden"
+                           asp-for="AppointmentId" />
+
+                    <div class="d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn btn-danger">
+                            Cancel Appointment
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Keep Appointment
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

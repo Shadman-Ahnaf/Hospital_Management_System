@@ -1,0 +1,216 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Department>
+
+@{
+    ViewData["Title"] = "Department Management";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Hospital Administration
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Department Management
+                </h1>
+
+                <p class="hms-subtitle">
+                    Create, update and manage hospital departments.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               class="btn hms-btn hms-btn-primary">
+                + Add Department
+            </a>
+
+        </div>
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-warning hms-alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+
+        <!-- Search -->
+
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h5 class="mb-1">
+                        Department Search
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Search by department name, location or description.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="p-4">
+
+                <form asp-action="Index"
+                      method="get">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-10">
+
+                            <input name="search"
+                                   value="@ViewBag.Search"
+                                   class="form-control hms-search"
+                                   placeholder="Search departments..." />
+
+                        </div>
+
+                        <div class="col-md-2 d-grid">
+
+                            <button type="submit"
+                                    class="btn hms-btn hms-btn-primary">
+                                Search
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Department Table -->
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h5 class="mb-1">
+                        Hospital Departments
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Departments currently registered in the system.
+                    </p>
+                </div>
+
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    @Model.Count() Departments
+                </span>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Doctors</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5"
+                                    class="text-center py-5 text-muted">
+
+                                    <div class="fs-3 mb-2">
+                                        🏥
+                                    </div>
+
+                                    No departments found.
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var department in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @department.DepartmentName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @(department.Location ?? "—")
+                                    </td>
+
+                                    <td>
+                                        @(department.Description ?? "—")
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-light text-dark">
+                                            @department.Doctors.Count doctor(s)
+                                        </span>
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@department.DepartmentId"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            View
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@department.DepartmentId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            Edit
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@department.DepartmentId"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Delete
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

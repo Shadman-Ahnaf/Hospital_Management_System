@@ -1,0 +1,130 @@
+﻿@model HospitalManagementSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "Edit Patient";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Edit Patient</h1>
+                <p class="hms-subtitle">
+                    Update patient information and contact details.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary hms-btn">
+                Back to Patients
+            </a>
+        </div>
+
+        <div class="hms-card">
+            <div class="hms-card-body">
+
+                <form asp-action="Edit" method="post">
+
+                    <input type="hidden" asp-for="PatientId" />
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+                            <label asp-for="FullName" class="form-label hms-form-label">
+                                Full Name
+                            </label>
+                            <input asp-for="FullName" class="form-control hms-form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="DateOfBirth" class="form-label hms-form-label">
+                                Date of Birth
+                            </label>
+                            <input asp-for="DateOfBirth" class="form-control hms-form-control" />
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label hms-form-label">
+                                Gender
+                            </label>
+                            <select asp-for="Gender" class="form-select hms-form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label hms-form-label">
+                                Phone
+                            </label>
+                            <input asp-for="Phone" class="form-control hms-form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label hms-form-label">
+                                Email
+                            </label>
+                            <input asp-for="Email" class="form-control hms-form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="BloodGroup" class="form-label hms-form-label">
+                                Blood Group
+                            </label>
+                            <input asp-for="BloodGroup" class="form-control hms-form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label hms-form-label">
+                                Address
+                            </label>
+                            <textarea asp-for="Address"
+                                      class="form-control hms-form-control"
+                                      rows="3"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="EmergencyContact"
+                                   class="form-label hms-form-label">
+                                Emergency Contact
+                            </label>
+                            <input asp-for="EmergencyContact"
+                                   class="form-control hms-form-control" />
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 pt-3 border-top">
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Save Changes
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary hms-btn ms-2">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

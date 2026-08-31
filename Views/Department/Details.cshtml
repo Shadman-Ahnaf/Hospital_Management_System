@@ -1,0 +1,178 @@
+﻿@model HospitalManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Department
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    @Model.DepartmentName
+                </h1>
+
+                <p class="hms-subtitle">
+                    Department information and assigned doctors.
+                </p>
+            </div>
+
+            <div class="d-flex gap-2">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.DepartmentId"
+                   class="btn hms-btn hms-btn-primary">
+                    Edit Department
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Department Information -->
+
+            <div class="col-md-6">
+
+                <div class="hms-card h-100">
+
+                    <div class="hms-card-header">
+
+                        <div>
+                            <h4 class="mb-1">
+                                Department Information
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Basic department details.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="p-4">
+
+                        <div class="mb-4">
+
+                            <div class="text-muted small">
+                                DEPARTMENT NAME
+                            </div>
+
+                            <div class="fw-semibold fs-5">
+                                @Model.DepartmentName
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <div class="text-muted small">
+                                LOCATION
+                            </div>
+
+                            <div>
+                                @(Model.Location ?? "Not specified")
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="text-muted small">
+                                DESCRIPTION
+                            </div>
+
+                            <div>
+                                @(Model.Description ?? "No description available.")
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Doctors -->
+
+            <div class="col-md-6">
+
+                <div class="hms-card h-100">
+
+                    <div class="hms-card-header">
+
+                        <div>
+                            <h4 class="mb-1">
+                                Assigned Doctors
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Doctors currently assigned to this department.
+                            </p>
+                        </div>
+
+                        <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                            @Model.Doctors.Count Doctor(s)
+                        </span>
+
+                    </div>
+
+
+                    <div class="p-4">
+
+                        @if (!Model.Doctors.Any())
+                        {
+                            <div class="text-center text-muted py-4">
+                                No doctors are currently assigned.
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="list-group">
+
+                                @foreach (var doctor in Model.Doctors)
+                                {
+                                    <div class="list-group-item">
+
+                                        <strong>
+                                            @doctor.FullName
+                                        </strong>
+
+                                        <div class="small text-muted">
+                                            @doctor.Specialization
+                                        </div>
+
+                                    </div>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

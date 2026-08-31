@@ -1,0 +1,574 @@
+﻿@using HospitalManagementSystem.Models
+
+@{
+    ViewData["Title"] = "System Reports";
+
+    var departmentReports = ViewBag.DepartmentReports;
+    var recentAppointments =
+        ViewBag.RecentAppointments as List<Appointment>;
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    System Reports
+                </h1>
+
+                <p class="hms-subtitle">
+                    Overview of hospital operations, appointments
+                    and system activity.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- General Statistics -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- Patients -->
+
+            <div class="col-md-3">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            PATIENTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalPatients
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Registered patients
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Doctors -->
+
+            <div class="col-md-3">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            DOCTORS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalDoctors
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Registered doctors
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Appointments -->
+
+            <div class="col-md-3">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            APPOINTMENTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalAppointments
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Total appointments
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Medical Records -->
+
+            <div class="col-md-3">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            MEDICAL RECORDS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalMedicalRecords
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Patient medical records
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Appointment Status -->
+
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+
+                <div>
+
+                    <h3 class="mb-1">
+                        Appointment Statistics
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Current appointment status across the hospital.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Scheduled -->
+
+                    <div class="col-md-3">
+
+                        <div class="border rounded-3 p-4">
+
+                            <div class="text-muted small">
+                                SCHEDULED
+                            </div>
+
+                            <h2 class="mt-2 mb-0">
+                                @ViewBag.ScheduledAppointments
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Completed -->
+
+                    <div class="col-md-3">
+
+                        <div class="border rounded-3 p-4">
+
+                            <div class="text-muted small">
+                                COMPLETED
+                            </div>
+
+                            <h2 class="mt-2 mb-0">
+                                @ViewBag.CompletedAppointments
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Cancelled -->
+
+                    <div class="col-md-3">
+
+                        <div class="border rounded-3 p-4">
+
+                            <div class="text-muted small">
+                                CANCELLED
+                            </div>
+
+                            <h2 class="mt-2 mb-0">
+                                @ViewBag.CancelledAppointments
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Today -->
+
+                    <div class="col-md-3">
+
+                        <div class="border rounded-3 p-4">
+
+                            <div class="text-muted small">
+                                TODAY
+                            </div>
+
+                            <h2 class="mt-2 mb-0">
+                                @ViewBag.TodayAppointments
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Department Report -->
+
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+
+                <div>
+
+                    <h3 class="mb-1">
+                        Department Report
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Number of doctors assigned to each department.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Doctors
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (departmentReports != null &&
+                             departmentReports.Count > 0)
+                        {
+                            foreach (var department in departmentReports)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @department.DepartmentName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @department.DoctorCount
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="2"
+                                    class="text-center py-4 text-muted">
+
+                                    No department information available.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- Additional Statistics -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- Receptionists -->
+
+            <div class="col-md-4">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            RECEPTIONISTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalReceptionists
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Active reception staff
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Departments -->
+
+            <div class="col-md-4">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            DEPARTMENTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalDepartments
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Hospital departments
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Prescriptions -->
+
+            <div class="col-md-4">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            PRESCRIPTIONS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalPrescriptions
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Prescriptions issued
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recent Appointments -->
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+
+                    <h3 class="mb-1">
+                        Recent Appointments
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Latest appointments recorded in the system.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Patient
+                            </th>
+
+                            <th>
+                                Doctor
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (recentAppointments != null &&
+                             recentAppointments.Any())
+                        {
+                            foreach (var appointment in recentAppointments)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @(appointment.Patient?.FullName
+                                                ?? "Unknown Patient")
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @(appointment.Doctor?.FullName
+                                            ?? "Unknown Doctor")
+                                    </td>
+
+                                    <td>
+                                        @appointment.AppointmentDate
+                                        .ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @appointment.AppointmentTime
+                                    </td>
+
+                                    <td>
+
+                                        @if (appointment.Status == "Completed")
+                                        {
+                                            <span class="badge bg-success">
+                                                Completed
+                                            </span>
+                                        }
+                                        else if (appointment.Status == "Cancelled")
+                                        {
+                                            <span class="badge bg-danger">
+                                                Cancelled
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-primary">
+                                                @appointment.Status
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="5"
+                                    class="text-center py-5 text-muted">
+
+                                    No appointments found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="mt-4 text-center">
+
+            <p class="text-muted small mb-0">
+                HMS Administration • System monitoring and reporting
+            </p>
+
+        </div>
+
+    </div>
+</div>

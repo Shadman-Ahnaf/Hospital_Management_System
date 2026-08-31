@@ -1,0 +1,141 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Prescription>
+
+@{
+    ViewData["Title"] = "My Prescriptions";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    My Prescriptions
+                </h1>
+
+                <p class="hms-subtitle">
+                    View medicines prescribed by your doctors.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        Prescription History
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Patient:
+                        <strong>@ViewBag.PatientName</strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Medicine</th>
+                            <th>Dosage</th>
+                            <th>Frequency</th>
+                            <th>Duration</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+
+                                <td colspan="7"
+                                    class="text-center py-5 text-muted">
+
+                                    No prescriptions are available.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var prescription in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @prescription.PrescriptionDate
+                                        .ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @(prescription.Doctor?.FullName
+                                            ?? "Not Available")
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            @prescription.MedicineName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @prescription.Dosage
+                                    </td>
+
+                                    <td>
+                                        @prescription.Frequency
+                                    </td>
+
+                                    <td>
+                                        @prescription.Duration
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="PrescriptionDetails"
+                                           asp-route-id="@prescription.PrescriptionId"
+                                           class="btn btn-sm btn-outline-primary">
+
+                                            View
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

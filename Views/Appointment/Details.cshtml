@@ -1,0 +1,213 @@
+﻿@model HospitalManagementSystem.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header mb-4">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Appointment Management
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Appointment Details
+                </h1>
+
+                <p class="hms-subtitle">
+                    Review complete appointment information.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn hms-btn hms-btn-outline">
+                ← Back to Appointments
+            </a>
+
+        </div>
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        Appointment #@Model.AppointmentId
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        @Model.AppointmentDate.ToString("dd MMMM yyyy")
+                    </p>
+                </div>
+
+                <div>
+                    @if (Model.Status == "Scheduled")
+                    {
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2">
+                            Scheduled
+                        </span>
+                    }
+                    else if (Model.Status == "Confirmed")
+                    {
+                        <span class="badge bg-success-subtle text-success px-3 py-2">
+                            Confirmed
+                        </span>
+                    }
+                    else if (Model.Status == "Completed")
+                    {
+                        <span class="badge bg-info-subtle text-info px-3 py-2">
+                            Completed
+                        </span>
+                    }
+                    else if (Model.Status == "Cancelled")
+                    {
+                        <span class="badge bg-danger-subtle text-danger px-3 py-2">
+                            Cancelled
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning-subtle text-warning px-3 py-2">
+                            @Model.Status
+                        </span>
+                    }
+                </div>
+
+            </div>
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Patient
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.Patient?.FullName ?? "Unknown")
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Doctor
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.Doctor?.FullName ?? "Unknown")
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Appointment Date
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @Model.AppointmentDate.ToString("dd MMMM yyyy")
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Appointment Time
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @DateTime.Today.Add(Model.AppointmentTime).ToString("hh:mm tt")
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <label class="form-label text-muted">
+                            Reason for Visit
+                        </label>
+
+                        <div class="hms-readonly-field">
+                            @(Model.Reason ?? "No reason provided.")
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @if (User.IsInRole("Admin") ||
+                 User.IsInRole("Receptionist") ||
+                 User.IsInRole("Doctor"))
+            {
+                <div class="border-top p-4">
+
+                    <h6 class="fw-semibold mb-3">
+                        Update Appointment Status
+                    </h6>
+
+                    <form asp-action="UpdateStatus"
+                          method="post"
+                          class="d-flex flex-wrap gap-2">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.AppointmentId" />
+
+                        @if (User.IsInRole("Doctor") ||
+                             User.IsInRole("Admin") ||
+                             User.IsInRole("Receptionist"))
+                        {
+                            <button type="submit"
+                                    name="status"
+                                    value="Confirmed"
+                                    class="btn btn-sm btn-outline-success">
+                                Confirm
+                            </button>
+                        }
+
+                        @if (User.IsInRole("Doctor") ||
+                             User.IsInRole("Admin") ||
+                             User.IsInRole("Receptionist"))
+                        {
+                            <button type="submit"
+                                    name="status"
+                                    value="Completed"
+                                    class="btn btn-sm btn-outline-primary">
+                                Mark Completed
+                            </button>
+                        }
+
+                        @if (User.IsInRole("Admin") ||
+                             User.IsInRole("Receptionist"))
+                        {
+                            <button type="submit"
+                                    name="status"
+                                    value="Cancelled"
+                                    class="btn btn-sm btn-outline-danger">
+                                Cancel
+                            </button>
+                        }
+
+                    </form>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

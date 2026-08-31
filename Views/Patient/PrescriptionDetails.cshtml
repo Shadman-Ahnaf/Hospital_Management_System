@@ -1,0 +1,126 @@
+﻿@model HospitalManagementSystem.Models.Prescription
+
+@{
+    ViewData["Title"] = "Prescription Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Prescription Details
+                </h1>
+
+                <p class="hms-subtitle">
+                    View the details of your prescribed medicine.
+                </p>
+            </div>
+
+            <a asp-action="Prescriptions"
+               class="btn btn-outline-secondary">
+                Back to Prescriptions
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Medication Information
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Prescribed by:
+                        <strong>
+                            @(Model.Doctor?.FullName ?? "Not Available")
+                        </strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Medicine Name
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.MedicineName
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Prescription Date
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.PrescriptionDate
+                            .ToString("dd MMM yyyy")
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <label class="form-label text-muted">
+                            Dosage
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.Dosage
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <label class="form-label text-muted">
+                            Frequency
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.Frequency
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <label class="form-label text-muted">
+                            Duration
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.Duration
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

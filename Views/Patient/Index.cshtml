@@ -1,0 +1,139 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Patient>
+
+@{
+    ViewData["Title"] = "Patient Management";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Patient Management</h1>
+                <p class="hms-subtitle">
+                    Register, search and manage hospital patient records.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               class="btn hms-btn hms-btn-primary">
+                + Register Patient
+            </a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["TemporaryCredentials"] != null)
+        {
+            <div class="alert alert-info hms-alert">
+                <strong>Patient Account Created</strong><br />
+                @TempData["TemporaryCredentials"]<br />
+                <small>
+                    The patient must change this temporary password after first login.
+                </small>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-warning hms-alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="hms-card">
+            <div class="hms-card-header">
+                <form asp-action="Index" method="get" class="row g-2">
+
+                    <div class="col-md-10">
+                        <input name="search"
+                               value="@ViewBag.Search"
+                               class="form-control hms-search"
+                               placeholder="Search by name, phone or email..." />
+                    </div>
+
+                    <div class="col-md-2 d-grid">
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Search
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table hms-table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    No patient records found.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var patient in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@patient.FullName</strong>
+                                    </td>
+
+                                    <td>
+                                        @patient.DateOfBirth.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>@patient.Gender</td>
+
+                                    <td>@patient.Phone</td>
+
+                                    <td>
+                                        @(patient.Email ?? "—")
+                                    </td>
+
+                                    <td class="text-end">
+                                        <a asp-action="Details"
+                                           asp-route-id="@patient.PatientId"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            View
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@patient.PatientId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            Edit
+                                        </a>
+                                        <a asp-action="Delete"
+                                           asp-route-id="@patient.PatientId"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

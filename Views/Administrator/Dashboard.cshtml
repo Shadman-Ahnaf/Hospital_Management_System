@@ -2,30 +2,273 @@
     ViewData["Title"] = "Administrator Dashboard";
 }
 
-<h1>Administrator Dashboard</h1>
+<div class="hms-page">
+    <div class="container">
 
-<p>Welcome, Administrator.</p>
+        <!-- Header -->
+        <div class="hms-page-header">
 
-<hr />
+            <div>
+                <h1 class="hms-title">
+                    Administrator Dashboard
+                </h1>
 
-<div class="row">
-    <div class="col-md-3">
-        <h4>Patients</h4>
-        <p>Manage patient accounts.</p>
-    </div>
+                <p class="hms-subtitle">
+                    Monitor and manage the Hospital Management System.
+                </p>
+            </div>
 
-    <div class="col-md-3">
-        <h4>Doctors</h4>
-        <p>Manage doctors.</p>
-    </div>
+        </div>
 
-    <div class="col-md-3">
-        <h4>Departments</h4>
-        <p>Manage departments.</p>
-    </div>
 
-    <div class="col-md-3">
-        <h4>Reports</h4>
-        <p>View hospital reports.</p>
+        <!-- Statistics -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- Patients -->
+            <div class="col-md-3">
+                <div class="hms-card h-100">
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            PATIENTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalPatients
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Registered patients
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Doctors -->
+            <div class="col-md-3">
+                <div class="hms-card h-100">
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            DOCTORS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalDoctors
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Registered doctors
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Receptionists -->
+            <div class="col-md-3">
+                <div class="hms-card h-100">
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            RECEPTIONISTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalReceptionists
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Active staff accounts
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Departments -->
+            <div class="col-md-3">
+                <div class="hms-card h-100">
+                    <div class="p-4">
+
+                        <div class="text-muted small">
+                            DEPARTMENTS
+                        </div>
+
+                        <h2 class="mt-2 mb-0">
+                            @ViewBag.TotalDepartments
+                        </h2>
+
+                        <p class="text-muted mb-0 mt-2">
+                            Hospital departments
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Management -->
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        System Management
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Manage hospital staff and system resources.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Staff Management -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded-3 p-4 h-100">
+
+                            <h4>
+                                Staff Management
+                            </h4>
+
+                            <p class="text-muted">
+                                Register doctors and receptionists,
+                                manage their hospital profiles and
+                                create their system accounts.
+                            </p>
+
+                            <a asp-controller="Staff"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-primary">
+                                Manage Staff
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Patient Management -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded-3 p-4 h-100">
+
+                            <h4>
+                                Patient Management
+                            </h4>
+
+                            <p class="text-muted">
+                                View and manage registered patient
+                                records and accounts.
+                            </p>
+
+                            <a asp-controller="Patient"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-primary">
+                                Manage Patients
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Departments -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded-3 p-4 h-100">
+
+                            <h4>
+                                Department Management
+                            </h4>
+
+                            <p class="text-muted">
+                                Manage hospital departments and
+                                their associated doctors.
+                            </p>
+
+                            <a asp-controller="Department"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-primary">
+                                Manage Departments
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Appointments -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded-3 p-4 h-100">
+
+                            <h4>
+                                Appointment Overview
+                            </h4>
+
+                            <p class="text-muted">
+                                Monitor appointments across the
+                                hospital system.
+                            </p>
+
+                            <a asp-controller="Appointment"
+                               asp-action="Index"
+                               class="btn hms-btn hms-btn-primary">
+                                View Appointments
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Reports -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded-3 p-4 h-100">
+
+                            <h4>
+                                System Reports
+                            </h4>
+
+                            <p class="text-muted">
+                                View hospital statistics,
+                                appointment status, department
+                                information and recent activities.
+                            </p>
+
+                            <a asp-controller="Administrator"
+                               asp-action="Reports"
+                               class="btn hms-btn hms-btn-primary">
+                                View Reports
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 </div>

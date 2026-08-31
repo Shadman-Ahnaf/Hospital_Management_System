@@ -1,0 +1,137 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.MedicalRecord>
+
+@{
+    ViewData["Title"] = "Medical Records";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Medical Records
+                </h1>
+
+                <p class="hms-subtitle">
+                    View your diagnosis and treatment history.
+                </p>
+            </div>
+
+            <a asp-controller="PatientPortal"
+               asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        Medical History
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Patient:
+                        <strong>@ViewBag.PatientName</strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5 text-muted">
+
+                        <div class="display-5 mb-3">
+                            📋
+                        </div>
+
+                        <h5>
+                            No medical records found
+                        </h5>
+
+                        <p class="mb-0">
+                            Your medical records will appear here
+                            after a consultation.
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    foreach (var record in Model)
+                    {
+                        <div class="border rounded p-4 mb-4">
+
+                            <div class="d-flex justify-content-between
+                                align-items-start mb-3">
+
+                                <div>
+
+                                    <h5 class="mb-1">
+                                        Medical Consultation
+                                    </h5>
+
+                                    <small class="text-muted">
+                                        @record.RecordDate
+                                        .ToString("dd MMM yyyy, hh:mm tt")
+                                    </small>
+
+                                </div>
+
+                                <span class="badge bg-light text-dark">
+                                    @(record.Doctor?.FullName
+                                        ?? "Doctor")
+                                </span>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Diagnosis
+                                </label>
+
+                                <div class="p-3 bg-light rounded">
+                                    @record.Diagnosis
+                                </div>
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="form-label fw-semibold">
+                                    Treatment Details
+                                </label>
+
+                                <div class="p-3 bg-light rounded">
+                                    @(string.IsNullOrWhiteSpace(
+                                        record.TreatmentDetails)
+                                        ? "No treatment details provided."
+                                        : record.TreatmentDetails)
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

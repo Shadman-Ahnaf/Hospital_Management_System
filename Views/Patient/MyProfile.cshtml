@@ -1,0 +1,161 @@
+﻿@model HospitalManagementSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    My Profile
+                </h1>
+
+                <p class="hms-subtitle">
+                    View your personal information registered with the hospital.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Personal Information
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Your registered patient information.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Full Name
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.FullName
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Date of Birth
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.DateOfBirth.ToString("dd MMM yyyy")
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Gender
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.Gender
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Phone
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @Model.Phone
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Email
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @(Model.Email ?? "Not Provided")
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label text-muted">
+                            Blood Group
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @(Model.BloodGroup ?? "Not Provided")
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label text-muted">
+                            Address
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @(Model.Address ?? "Not Provided")
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label text-muted">
+                            Emergency Contact
+                        </label>
+
+                        <div class="form-control bg-light">
+                            @(Model.EmergencyContact ?? "Not Provided")
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

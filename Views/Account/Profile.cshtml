@@ -1,0 +1,409 @@
+﻿@model HospitalManagementSystem.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "My Profile";
+    string role = ViewBag.Role ?? "User";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Account
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    My Profile
+                </h1>
+
+                <p class="hms-subtitle">
+                    View and manage your personal account information.
+                </p>
+            </div>
+
+            <div>
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">
+                    @role
+                </span>
+            </div>
+
+        </div>
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
+        <!-- Profile -->
+        <div class="row g-4">
+
+            <!-- Basic Account Information -->
+            <div class="col-lg-4">
+
+                <div class="hms-card h-100">
+
+                    <div class="p-4 text-center">
+
+                        <div class="mb-3">
+                            <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center"
+                                 style="width:90px;height:90px;font-size:40px;">
+                                👤
+                            </div>
+                        </div>
+
+                        <h3 class="mb-1">
+                            @Model.FullName
+                        </h3>
+
+                        <p class="text-muted mb-3">
+                            @role
+                        </p>
+
+                        <hr />
+
+                        <div class="text-start">
+
+                            <div class="mb-3">
+                                <div class="small text-muted">
+                                    EMAIL
+                                </div>
+
+                                <div class="fw-semibold">
+                                    @Model.Email
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="small text-muted">
+                                    PHONE
+                                </div>
+
+                                <div class="fw-semibold">
+                                    @(Model.PhoneNumber ?? "Not provided")
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Role Specific Information -->
+            <div class="col-lg-8">
+
+                <div class="hms-card">
+
+                    <div class="hms-card-header">
+
+                        <div>
+                            <h4 class="mb-1">
+                                Profile Information
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Your information registered in the hospital system.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="p-4">
+
+                        @if (role == "Doctor")
+                        {
+                            <div class="row g-4">
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        FULL NAME
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.DoctorName
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        SPECIALIZATION
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.Specialization
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        PHONE
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.DoctorPhone
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        DEPARTMENT
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.DepartmentName
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        AVAILABILITY
+                                    </label>
+
+                                    <div class="mt-1">
+
+                                        @if (ViewBag.IsAvailable == true)
+                                        {
+                                            <span class="badge bg-success-subtle text-success">
+                                                Available
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary-subtle text-secondary">
+                                                Unavailable
+                                            </span>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        else if (role == "Patient")
+                        {
+                            <div class="row g-4">
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        FULL NAME
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.PatientName
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        DATE OF BIRTH
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.DateOfBirth
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        GENDER
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.Gender
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        PHONE
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.PatientPhone
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        BLOOD GROUP
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @(ViewBag.BloodGroup ?? "Not provided")
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        EMERGENCY CONTACT
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @(ViewBag.EmergencyContact ?? "Not provided")
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="text-muted small">
+                                        ADDRESS
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @(ViewBag.Address ?? "Not provided")
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        else if (role == "Receptionist")
+                        {
+                            <div class="row g-4">
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        FULL NAME
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.ReceptionistName
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        EMAIL
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.ReceptionistEmail
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        PHONE
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @ViewBag.ReceptionistPhone
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        STATUS
+                                    </label>
+
+                                    <div class="mt-1">
+
+                                        @if (ViewBag.IsActive == true)
+                                        {
+                                            <span class="badge bg-success-subtle text-success">
+                                                Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary-subtle text-secondary">
+                                                Inactive
+                                            </span>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Administrator -->
+
+                            <div class="row g-4">
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        FULL NAME
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @Model.FullName
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        EMAIL
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @Model.Email
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        PHONE
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        @(Model.PhoneNumber ?? "Not provided")
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="text-muted small">
+                                        ROLE
+                                    </label>
+
+                                    <div class="fw-semibold mt-1">
+                                        Administrator
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- Edit -->
+                <div class="mt-4">
+
+                    <a asp-controller="Account"
+                       asp-action="EditProfile"
+                       class="btn hms-btn hms-btn-primary">
+
+                        Edit Profile
+
+                    </a>
+
+                    <a asp-controller="Account"
+                       asp-action="Settings"
+                       class="btn btn-outline-secondary ms-2">
+
+                        Settings
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

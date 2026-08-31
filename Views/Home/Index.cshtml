@@ -1,18 +1,238 @@
 ﻿@{
-    ViewData["Title"] = "Hospital Management System";
+    ViewData["Title"] = "MediCare Hospital";
+    ViewData["FullScreen"] = true;
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Hospital Management System</h1>
+<div class="hospital-home">
 
-    <p class="lead mt-3">
-        A centralized system for managing patients, doctors,
-        appointments and medical records.
-    </p>
+    <!-- Animated background elements -->
+    <div class="medical-orb orb-one"></div>
+    <div class="medical-orb orb-two"></div>
+    <div class="medical-grid"></div>
 
-    <a asp-controller="Account"
-       asp-action="Login"
-       class="btn btn-primary btn-lg mt-3">
-        Login to HMS
-    </a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <!-- Hospital Name -->
+            <div class="hospital-name">
+                <span class="hospital-logo">+</span>
+
+                <div class="hospital-name-text">
+                    <span class="hospital-name-main">
+                        Avenger CARE
+                    </span>
+
+                    <span class="hospital-name-sub">
+                        AND HOSPITAL
+                    </span>
+                </div>
+            </div>
+
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                Advanced Healthcare Management
+            </div>
+
+            <h1>
+                Healthcare that puts
+                <span>people first.</span>
+            </h1>
+
+            <p class="hero-description">
+                Welcome to our Hospital Management System — a smarter,
+                faster and more connected way to manage healthcare,
+                patients, doctors and appointments.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a asp-controller="Account"
+                   asp-action="Login"
+                   class="hero-login-btn">
+
+                    <span>Access HMS</span>
+                    <span class="arrow">→</span>
+
+                </a>
+
+                <a href="#services"
+                   class="explore-btn">
+                    Explore Services
+                </a>
+
+            </div>
+
+            <!-- Trust indicators -->
+            <div class="hero-stats">
+
+                <div class="stat">
+                    <strong>24/7</strong>
+                    <span>Healthcare Access</span>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="stat">
+                    <strong>100%</strong>
+                    <span>Secure Records</span>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="stat">
+                    <strong>4+</strong>
+                    <span>Healthcare Roles</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Doctor / Medical visual -->
+        <div class="hero-visual">
+
+            <div class="visual-glow"></div>
+
+            <div class="doctor-card">
+
+                <div class="doctor-image-area">
+
+                    <div class="doctor-silhouette">
+                        <div class="doctor-head"></div>
+
+                        <div class="doctor-body">
+                            <div class="doctor-coat"></div>
+                            <div class="doctor-stethoscope"></div>
+                        </div>
+                    </div>
+
+                    <div class="medical-cross">
+                        +
+                    </div>
+
+                </div>
+
+                <div class="doctor-info">
+
+                    <div>
+                        <small>Healthcare Professional</small>
+                        <h3>Dedicated to Your Care</h3>
+                    </div>
+
+                    <div class="online-status">
+                        <span></span>
+                        Available
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Floating cards -->
+
+            <div class="floating-card appointment-card">
+
+                <div class="floating-icon">
+                    <span>✓</span>
+                </div>
+
+                <div>
+                    <small>Appointments</small>
+                    <strong>Easy & Organized</strong>
+                </div>
+
+            </div>
+
+            <div class="floating-card records-card">
+
+                <div class="floating-icon">
+                    +
+                </div>
+
+                <div>
+                    <small>Medical Records</small>
+                    <strong>Secure & Centralized</strong>
+                </div>
+
+            </div>
+
+            <div class="floating-card heart-card">
+                <span>♥</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services-section">
+
+        <div class="section-heading">
+
+            <span>OUR PLATFORM</span>
+
+            <h2>
+                Everything you need,
+                <br />
+                <strong>in one place.</strong>
+            </h2>
+
+        </div>
+
+        <div class="service-cards">
+
+            <div class="service-card">
+                <div class="service-icon">+</div>
+                <h3>Patient Care</h3>
+                <p>
+                    Manage patient information and medical records
+                    efficiently and securely.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">◉</div>
+                <h3>Appointments</h3>
+                <p>
+                    Organize appointments and connect patients
+                    with healthcare professionals.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">✚</div>
+                <h3>Medical Management</h3>
+                <p>
+                    Keep diagnoses, prescriptions and treatment
+                    information organized.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+
+        <div>
+            <span>READY TO GET STARTED?</span>
+
+            <h2>
+                Your healthcare journey
+                <br />
+                starts here.
+            </h2>
+        </div>
+
+        <a asp-controller="Account"
+           asp-action="Login"
+           class="cta-button">
+            Login to HMS →
+        </a>
+
+    </section>
+
 </div>

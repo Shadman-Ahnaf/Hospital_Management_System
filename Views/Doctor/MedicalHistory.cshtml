@@ -1,0 +1,193 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.MedicalRecord>
+
+@{
+    ViewData["Title"] = "Medical History";
+    var patient = ViewBag.Patient as HospitalManagementSystem.Models.Patient;
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Medical History
+                </h1>
+
+                <p class="hms-subtitle">
+                    Medical records and prescriptions for
+                    <strong>@patient?.FullName</strong>.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- Patient Information -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+                <div>
+                    <h3 class="mb-1">
+                        Patient Information
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Patient medical history
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-4">
+                        <div class="text-muted small">
+                            PATIENT NAME
+                        </div>
+
+                        <strong>
+                            @patient?.FullName
+                        </strong>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="text-muted small">
+                            DATE OF BIRTH
+                        </div>
+
+                        <strong>
+                            @patient?.DateOfBirth.ToString("dd MMM yyyy")
+                        </strong>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="text-muted small">
+                            PHONE
+                        </div>
+
+                        <strong>
+                            @patient?.Phone
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
+        <!-- Medical Records -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Medical Records
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Diagnosis and treatment history.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Diagnosis</th>
+                            <th>Treatment</th>
+                            <th class="text-end">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5"
+                                    class="text-center py-5 text-muted">
+
+                                    No medical records found.
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var record in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @record.RecordDate
+                                        .ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            @(record.Doctor?.FullName ?? "—")
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @record.Diagnosis
+                                    </td>
+
+                                    <td>
+                                        @(record.TreatmentDetails ?? "—")
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="CreatePrescription"
+                                           asp-route-medicalRecordId="@record.MedicalRecordId"
+                                           class="btn btn-sm hms-btn hms-btn-primary">
+                                            + Prescription
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

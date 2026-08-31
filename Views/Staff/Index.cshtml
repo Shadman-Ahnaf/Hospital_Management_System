@@ -1,0 +1,253 @@
+﻿@using HospitalManagementSystem.Models
+
+@{
+    ViewData["Title"] = "Staff Management";
+
+    var doctors = ViewBag.Doctors as List<Doctor>
+                  ?? new List<Doctor>();
+
+    var receptionists = ViewBag.Receptionists as List<Receptionist>
+                        ?? new List<Receptionist>();
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Staff Management</h1>
+
+                <p class="hms-subtitle">
+                    Manage doctors and receptionists and their system accounts.
+                </p>
+            </div>
+
+            <div class="d-flex gap-2">
+
+                <a asp-action="CreateDoctor"
+                   class="btn hms-btn hms-btn-primary">
+                    + Register Doctor
+                </a>
+
+                <a asp-action="CreateReceptionist"
+                   class="btn hms-btn hms-btn-primary">
+                    + Register Receptionist
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success hms-alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
+        <!-- Doctors -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+                <div>
+                    <h3 class="mb-1">
+                        Doctors
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Registered doctors and their hospital information.
+                    </p>
+                </div>
+
+                <span class="badge bg-primary">
+                    @doctors.Count Doctors
+                </span>
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Specialization</th>
+                            <th>Department</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!doctors.Any())
+                        {
+                            <tr>
+                                <td colspan="6"
+                                    class="text-center py-5 text-muted">
+
+                                    No doctors registered yet.
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var doctor in doctors)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @doctor.FullName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @doctor.Specialization
+                                    </td>
+
+                                    <td>
+                                        @(doctor.Department?.DepartmentName ?? "Not assigned")
+                                    </td>
+
+                                    <td>
+                                        @doctor.Phone
+                                    </td>
+
+                                    <td>
+                                        @(doctor.Email ?? "—")
+                                    </td>
+
+                                    <td>
+
+                                        @if (doctor.IsAvailable)
+                                        {
+                                            <span class="badge bg-success">
+                                                Available
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                Unavailable
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- Receptionists -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+                <div>
+                    <h3 class="mb-1">
+                        Receptionists
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Registered reception staff and account status.
+                    </p>
+                </div>
+
+                <span class="badge bg-primary">
+                    @receptionists.Count Receptionists
+                </span>
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!receptionists.Any())
+                        {
+                            <tr>
+                                <td colspan="4"
+                                    class="text-center py-5 text-muted">
+
+                                    No receptionists registered yet.
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var receptionist in receptionists)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @receptionist.FullName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @receptionist.Phone
+                                    </td>
+
+                                    <td>
+                                        @receptionist.Email
+                                    </td>
+
+                                    <td>
+
+                                        @if (receptionist.IsActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                Inactive
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

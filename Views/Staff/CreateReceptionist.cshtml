@@ -1,0 +1,159 @@
+﻿@model HospitalManagementSystem.Models.Receptionist
+
+@{
+    ViewData["Title"] = "Register Receptionist";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Register Receptionist</h1>
+
+                <p class="hms-subtitle">
+                    Create a receptionist profile and hospital login account.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                ← Back to Staff
+            </a>
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="p-4">
+
+                <form asp-action="CreateReceptionist"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3"></div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="FullName"
+                                   class="form-label">
+                                Full Name
+                            </label>
+
+                            <input asp-for="FullName"
+                                   class="form-control"
+                                   placeholder="Receptionist Name" />
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger"></span>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Email"
+                                   class="form-label">
+                                Login Email
+                            </label>
+
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control"
+                                   placeholder="reception@hospital.com" />
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Temporary Password</label>
+
+                            <input type="password"
+                                   name="temporaryPassword"
+                                   class="form-control"
+                                   placeholder="Enter temporary password"
+                                   required />
+
+                            <small class="text-muted">
+                                The receptionist must change this password after first login.
+                            </small>
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Phone"
+                                   class="form-label">
+                                Phone
+                            </label>
+
+                            <input asp-for="Phone"
+                                   class="form-control"
+                                   placeholder="+880..." />
+
+                            <span asp-validation-for="Phone"
+                                  class="text-danger"></span>
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Account Status
+                            </label>
+
+                            <div class="form-check mt-2">
+
+                                <input asp-for="IsActive"
+                                       class="form-check-input" />
+
+                                <label asp-for="IsActive"
+                                       class="form-check-label">
+                                    Account is active
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-4" />
+
+
+                    <div class="d-flex justify-content-end gap-2">
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Register Receptionist
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

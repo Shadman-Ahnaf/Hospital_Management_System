@@ -1,0 +1,170 @@
+﻿@model HospitalManagementSystem.Models.MedicalRecord
+
+@{
+    ViewData["Title"] = "Create Medical Record";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Create Medical Record
+                </h1>
+
+                <p class="hms-subtitle">
+                    Record the diagnosis and treatment provided during this consultation.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- Medical Record Card -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Consultation Record
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Patient:
+                        <strong>@ViewBag.PatientName</strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- IMPORTANT: FORM STARTS HERE -->
+            <form asp-action="CreateMedicalRecord"
+                  method="post"
+                  id="medicalRecordForm">
+
+                <input type="hidden"
+                       asp-for="AppointmentId" />
+
+                <div class="p-4">
+
+                <div class="p-4">
+
+                    <!-- Validation -->
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- Patient -->
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Patient
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@ViewBag.PatientName"
+                                   readonly />
+
+                        </div>
+
+
+                        <!-- Appointment Date -->
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Appointment Date
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@ViewBag.AppointmentDate"
+                                   readonly />
+
+                        </div>
+
+
+                        <!-- Diagnosis -->
+                        <div class="col-12">
+
+                            <label asp-for="Diagnosis"
+                                   class="form-label">
+                                Diagnosis
+                            </label>
+
+                            <textarea asp-for="Diagnosis"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter diagnosis..."></textarea>
+
+                            <span asp-validation-for="Diagnosis"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Treatment -->
+                        <div class="col-12">
+
+                            <label asp-for="TreatmentDetails"
+                                   class="form-label">
+                                Treatment Details
+                            </label>
+
+                            <textarea asp-for="TreatmentDetails"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Enter treatment details, recommendations, or clinical notes..."></textarea>
+
+                            <span asp-validation-for="TreatmentDetails"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="mt-4 d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Save Medical Record
+                        </button>
+
+                        <a asp-action="Dashboard"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+            <!-- IMPORTANT: FORM ENDS HERE -->
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

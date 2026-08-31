@@ -1,0 +1,202 @@
+﻿@model HospitalManagementSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header mb-4">
+            <div>
+                <span class="text-uppercase text-muted small fw-semibold">
+                    Doctor Portal
+                </span>
+
+                <h1 class="hms-title mt-1">
+                    Patient Details
+                </h1>
+
+                <p class="hms-subtitle">
+                    View patient information and access available medical history.
+                </p>
+            </div>
+
+            <div>
+                <a asp-controller="Doctor"
+                   asp-action="Dashboard"
+                   class="btn hms-btn hms-btn-outline">
+                    ← Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Patient Information -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+                <div>
+                    <h4 class="mb-1">
+                        Patient Information
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Personal and contact information of the patient.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Full Name
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @Model.FullName
+                        </div>
+                    </div>
+
+                    <!-- Patient ID -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Patient ID
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            #@Model.PatientId
+                        </div>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Date of Birth
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @Model.DateOfBirth.ToString("dd MMM yyyy")
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Gender
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @Model.Gender
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Phone
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @Model.Phone
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Email
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @(string.IsNullOrWhiteSpace(Model.Email)
+                                ? "Not provided"
+                                : Model.Email)
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Address
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @(string.IsNullOrWhiteSpace(Model.Address)
+                                ? "Not provided"
+                                : Model.Address)
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Emergency Contact
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @(string.IsNullOrWhiteSpace(Model.EmergencyContact)
+                                ? "Not provided"
+                                : Model.EmergencyContact)
+                        </div>
+                    </div>
+
+                    <!-- Blood Group -->
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase fw-semibold">
+                            Blood Group
+                        </div>
+
+                        <div class="fs-5 mt-1">
+                            @(string.IsNullOrWhiteSpace(Model.BloodGroup)
+                                ? "Not provided"
+                                : Model.BloodGroup)
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Medical History -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+                <div>
+                    <h4 class="mb-1">
+                        Medical History
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Review this patient's previous medical records.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4">
+
+                <p class="text-muted mb-4">
+                    Access diagnosis, treatment details and previous
+                    clinical records for this patient.
+                </p>
+
+                <a asp-controller="Doctor"
+                   asp-action="MedicalHistory"
+                   asp-route-patientId="@Model.PatientId"
+                   class="btn hms-btn hms-btn-primary">
+                    View Medical History
+                    <span class="ms-2">→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

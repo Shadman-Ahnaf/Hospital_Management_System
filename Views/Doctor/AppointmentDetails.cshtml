@@ -1,0 +1,211 @@
+﻿@model HospitalManagementSystem.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Appointment Details
+                </h1>
+
+                <p class="hms-subtitle">
+                    Review appointment and patient information.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- Appointment Information -->
+        <div class="hms-card mb-4">
+
+            <div class="hms-card-header">
+                <div>
+                    <h3 class="mb-1">
+                        Appointment Information
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Details of the scheduled consultation.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="row g-4">
+
+                    <!-- Patient -->
+                    <div class="col-md-6">
+
+                        <div class="text-muted small">
+                            PATIENT
+                        </div>
+
+                        <h5 class="mb-0">
+                            @Model.Patient?.FullName
+                        </h5>
+
+                    </div>
+
+
+                    <!-- Doctor -->
+                    <div class="col-md-6">
+
+                        <div class="text-muted small">
+                            DOCTOR
+                        </div>
+
+                        <h5 class="mb-0">
+                            @Model.Doctor?.FullName
+                        </h5>
+
+                    </div>
+
+
+                    <!-- Date -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            DATE
+                        </div>
+
+                        <strong>
+                            @Model.AppointmentDate.ToString("dd MMM yyyy")
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Time -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            TIME
+                        </div>
+
+                        <strong>
+                            @Model.AppointmentTime
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+
+                        <div class="text-muted small">
+                            STATUS
+                        </div>
+
+                        @if (Model.Status == "Scheduled")
+                        {
+                            <span class="badge bg-primary">
+                                Scheduled
+                            </span>
+                        }
+                        else if (Model.Status == "Completed")
+                        {
+                            <span class="badge bg-success">
+                                Completed
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @Model.Status
+                            </span>
+                        }
+
+                    </div>
+
+
+                    <!-- Reason -->
+                    <div class="col-12">
+
+                        <div class="text-muted small">
+                            REASON FOR VISIT
+                        </div>
+
+                        <p class="mb-0">
+                            @(Model.Reason ?? "No reason provided.")
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Patient Actions -->
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Patient Clinical Actions
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Access patient information and clinical records.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="p-4">
+
+                <div class="d-flex flex-wrap gap-2">
+
+                    <!-- Patient Details -->
+                    <a asp-action="PatientDetails"
+                       asp-route-id="@Model.PatientId"
+                       class="btn hms-btn hms-btn-primary">
+                        Patient Details
+                    </a>
+
+
+                    <!-- Medical History -->
+                    <a asp-action="MedicalHistory"
+                       asp-route-patientId="@Model.PatientId"
+                       class="btn btn-outline-primary">
+                        Medical History
+                    </a>
+
+
+                    @if (Model.Status == "Scheduled")
+                    {
+                        <!-- Create Medical Record -->
+                        <a asp-action="CreateMedicalRecord"
+                           asp-route-appointmentId="@Model.AppointmentId"
+                           class="btn btn-outline-success">
+                            Create Medical Record
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

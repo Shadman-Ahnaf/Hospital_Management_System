@@ -1,0 +1,129 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.MedicalRecord>
+
+@{
+    ViewData["Title"] = "My Medical Records";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    My Medical Records
+                </h1>
+
+                <p class="hms-subtitle">
+                    View your diagnosis and treatment history.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h4 class="mb-1">
+                        Medical History
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Patient:
+                        <strong>@ViewBag.PatientName</strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table hms-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Diagnosis</th>
+                            <th>Treatment</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+
+                                <td colspan="5"
+                                    class="text-center py-5 text-muted">
+
+                                    No medical records are available.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var record in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @record.RecordDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @(record.Doctor?.FullName ?? "Not Available")
+                                    </td>
+
+                                    <td>
+                                        @record.Diagnosis
+                                    </td>
+
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(record.TreatmentDetails)
+                                            ? "—"
+                                            : record.TreatmentDetails)
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <a asp-action="MedicalRecordDetails"
+                                           asp-route-id="@record.MedicalRecordId"
+                                           class="btn btn-sm btn-outline-primary">
+
+                                            View
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

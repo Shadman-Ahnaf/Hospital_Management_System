@@ -1,0 +1,196 @@
+﻿@model HospitalManagementSystem.Models.Doctor
+
+@{
+    ViewData["Title"] = "Register Doctor";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Register Doctor</h1>
+                <p class="hms-subtitle">
+                    Create a doctor profile and hospital login account.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                ← Back to Staff
+            </a>
+        </div>
+
+        <div class="hms-card">
+            <div class="p-4">
+
+                <form asp-action="CreateDoctor" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="row g-4">
+
+                        <!-- Full Name -->
+                        <div class="col-md-6">
+                            <label asp-for="FullName"
+                                   class="form-label">
+                                Full Name
+                            </label>
+
+                            <input asp-for="FullName"
+                                   class="form-control"
+                                   placeholder="Enter doctor's full name" />
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label asp-for="Email"
+                                   class="form-label">
+                                Email / Login ID
+                            </label>
+
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="doctor@hospital.com" />
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="col-md-6">
+                            <label asp-for="Phone"
+                                   class="form-label">
+                                Phone
+                            </label>
+
+                            <input asp-for="Phone"
+                                   class="form-control"
+                                   placeholder="Enter phone number" />
+
+                            <span asp-validation-for="Phone"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- Specialization -->
+                        <div class="col-md-6">
+                            <label asp-for="Specialization"
+                                   class="form-label">
+                                Specialization
+                            </label>
+
+                            <input asp-for="Specialization"
+                                   class="form-control"
+                                   placeholder="e.g. Cardiology" />
+
+                            <span asp-validation-for="Specialization"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="col-md-6">
+                            <label asp-for="DepartmentId"
+                                   class="form-label">
+                                Department
+                            </label>
+
+                            <select asp-for="DepartmentId"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Select Department --
+                                </option>
+
+                                @if (ViewBag.Departments != null)
+                                {
+                                    foreach (var department in ViewBag.Departments)
+                                    {
+                                        <option value="@department.DepartmentId">
+                                            @department.DepartmentName
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="DepartmentId"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- Temporary Password -->
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Temporary Password
+                            </label>
+
+                            <input type="password"
+                                   name="temporaryPassword"
+                                   class="form-control"
+                                   placeholder="Enter temporary password"
+                                   autocomplete="new-password" />
+
+                            <div class="form-text">
+                                The doctor should change this password
+                                after the first login.
+                            </div>
+                        </div>
+
+                        <!-- Availability -->
+                        <div class="col-md-6">
+                            <div class="form-check mt-2">
+
+                                <input asp-for="IsAvailable"
+                                       class="form-check-input" />
+
+                                <label asp-for="IsAvailable"
+                                       class="form-check-label">
+                                    Doctor is currently available
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="d-flex justify-content-end gap-2">
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Register Doctor
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+```

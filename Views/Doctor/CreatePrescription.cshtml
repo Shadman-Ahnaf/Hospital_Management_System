@@ -1,0 +1,204 @@
+﻿@model HospitalManagementSystem.Models.Prescription
+
+@{
+    ViewData["Title"] = "Create Prescription";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+
+            <div>
+                <h1 class="hms-title">
+                    Create Prescription
+                </h1>
+
+                <p class="hms-subtitle">
+                    Prescribe medication for the current patient.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="hms-card">
+
+            <div class="hms-card-header">
+
+                <div>
+                    <h3 class="mb-1">
+                        Prescription Details
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Patient:
+                        <strong>@ViewBag.PatientName</strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form asp-action="CreatePrescription"
+                  method="post">
+
+                <div class="p-4">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <!-- IMPORTANT:
+                         These hidden fields send the IDs
+                         back to the controller.
+                    -->
+                    <input type="hidden"
+                           asp-for="MedicalRecordId" />
+
+                    <input type="hidden"
+                           asp-for="PatientId" />
+
+
+                    <div class="row g-4">
+
+                        <!-- Patient -->
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Patient
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@ViewBag.PatientName"
+                                   readonly />
+
+                        </div>
+
+
+                        <!-- Diagnosis -->
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Current Diagnosis
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@ViewBag.Diagnosis"
+                                   readonly />
+
+                        </div>
+
+
+                        <!-- Medicine -->
+                        <div class="col-md-12">
+
+                            <label asp-for="MedicineName"
+                                   class="form-label">
+                                Medicine Name
+                            </label>
+
+                            <input asp-for="MedicineName"
+                                   class="form-control"
+                                   placeholder="Enter medicine name" />
+
+                            <span asp-validation-for="MedicineName"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Dosage -->
+                        <div class="col-md-4">
+
+                            <label asp-for="Dosage"
+                                   class="form-label">
+                                Dosage
+                            </label>
+
+                            <input asp-for="Dosage"
+                                   class="form-control"
+                                   placeholder="e.g. 500 mg" />
+
+                            <span asp-validation-for="Dosage"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Frequency -->
+                        <div class="col-md-4">
+
+                            <label asp-for="Frequency"
+                                   class="form-label">
+                                Frequency
+                            </label>
+
+                            <input asp-for="Frequency"
+                                   class="form-control"
+                                   placeholder="e.g. Twice daily" />
+
+                            <span asp-validation-for="Frequency"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Duration -->
+                        <div class="col-md-4">
+
+                            <label asp-for="Duration"
+                                   class="form-label">
+                                Duration
+                            </label>
+
+                            <input asp-for="Duration"
+                                   class="form-control"
+                                   placeholder="e.g. 7 days" />
+
+                            <span asp-validation-for="Duration"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4 d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn hms-btn hms-btn-primary">
+                            Save Prescription
+                        </button>
+
+                        <a asp-action="Dashboard"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

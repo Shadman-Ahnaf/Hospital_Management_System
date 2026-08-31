@@ -1,58 +1,320 @@
 ﻿@{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "HMS Login";
+    ViewData["FullScreen"] = true;
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
+<div class="login-page">
 
-            <div class="card shadow">
-                <div class="card-body p-4">
+    <div class="login-background">
+        <div class="login-circle circle-one"></div>
+        <div class="login-circle circle-two"></div>
+        <div class="login-grid"></div>
+    </div>
 
-                    <h2 class="text-center mb-4">
-                        Hospital Management System
-                    </h2>
+    <div class="login-wrapper">
 
-                    <p class="text-center text-muted">
-                        Sign in to your account
-                    </p>
+        <!-- Left side -->
+        <div class="login-introduction">
 
-                    <form asp-action="Login" method="post">
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="back-home">
+                ← Back to Home
+            </a>
 
-                        @Html.AntiForgeryToken()
+            <div class="login-brand">
+                <span>+</span>
+                Avenger Care and Hospital
+            </div>
 
-                        <div asp-validation-summary="ModelOnly"
-                             class="text-danger mb-3">
-                        </div>
+            <div class="login-intro-content">
 
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email"
-                                   name="email"
-                                   class="form-control"
-                                   placeholder="Enter your email"
-                                   required />
-                        </div>
+                <span class="login-small-title">
+                    SECURE HEALTHCARE PORTAL
+                </span>
 
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="Enter your password"
-                                   required />
-                        </div>
+                <h1>
+                    Welcome
+                    <br />
+                    <span>back.</span>
+                </h1>
 
-                        <button type="submit"
-                                class="btn btn-primary w-100">
-                            Login
-                        </button>
+                <p>
+                    Sign in to access your personalized healthcare
+                    management dashboard.
+                </p>
 
-                    </form>
+                <div class="security-message">
+
+                    <div class="security-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Secure & Private</strong>
+                        <small>
+                            Your healthcare information is protected.
+                        </small>
+                    </div>
 
                 </div>
+
             </div>
 
         </div>
+
+
+        <!-- Login card -->
+        <div class="login-form-container">
+
+            <div class="login-card">
+
+                <div class="login-card-header">
+
+                    <div class="login-icon">
+                        +
+                    </div>
+
+                    <div>
+                        <span>ACCOUNT ACCESS</span>
+                        <h2>Sign in to HMS</h2>
+                    </div>
+
+                </div>
+
+                <p class="login-subtitle">
+                    Select your account type and enter your credentials.
+                </p>
+
+
+                <form asp-controller="Account"
+                      asp-action="Login"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="login-validation">
+                    </div>
+
+
+                    <!-- Role Selection -->
+                    <div class="role-section">
+
+                        <label class="input-label">
+                            Login as
+                        </label>
+
+                        <div class="role-grid">
+
+                            <!-- Administrator -->
+                            <label class="role-option">
+
+                                <input type="radio"
+                                       name="selectedRole"
+                                       value="Admin"
+                                       required />
+
+                                <div class="role-box">
+
+                                    <div class="role-icon">
+                                        ♙
+                                    </div>
+
+                                    <div>
+                                        <strong>Administrator</strong>
+                                        <small>System Management</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- Doctor -->
+                            <label class="role-option">
+
+                                <input type="radio"
+                                       name="selectedRole"
+                                       value="Doctor" />
+
+                                <div class="role-box">
+
+                                    <div class="role-icon">
+                                        ⚕
+                                    </div>
+
+                                    <div>
+                                        <strong>Doctor</strong>
+                                        <small>Medical Portal</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- Receptionist -->
+                            <label class="role-option">
+
+                                <input type="radio"
+                                       name="selectedRole"
+                                       value="Receptionist" />
+
+                                <div class="role-box">
+
+                                    <div class="role-icon">
+                                        ☎
+                                    </div>
+
+                                    <div>
+                                        <strong>Receptionist</strong>
+                                        <small>Front Desk</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- Patient -->
+                            <label class="role-option">
+
+                                <input type="radio"
+                                       name="selectedRole"
+                                       value="Patient" />
+
+                                <div class="role-box">
+
+                                    <div class="role-icon">
+                                        ♡
+                                    </div>
+
+                                    <div>
+                                        <strong>Patient</strong>
+                                        <small>Patient Portal</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="login-input-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-with-icon">
+
+                            <span>✉</span>
+
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Enter your email"
+                                   autocomplete="email"
+                                   required />
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="login-input-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-with-icon">
+
+                            <span>●</span>
+
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password"
+                                   required />
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword()">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Login button -->
+                    <button type="submit"
+                            class="login-submit">
+
+                        <span>Sign In Securely</span>
+
+                        <span class="login-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="login-footer">
+
+                    <span>
+                        <span class="footer-check">✓</span>
+                        Secure authentication
+                    </span>
+
+                    <span>
+                        HMS Portal
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </div>
+
+
+@section Scripts {
+
+    <script>
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".password-toggle");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "Show";
+
+            }
+        }
+    </script>
+}

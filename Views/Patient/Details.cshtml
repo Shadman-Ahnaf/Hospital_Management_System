@@ -1,0 +1,101 @@
+﻿@model HospitalManagementSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="hms-page">
+    <div class="container">
+
+        <div class="hms-page-header">
+            <div>
+                <h1 class="hms-title">Patient Details</h1>
+                <p class="hms-subtitle">
+                    Patient profile and registered information.
+                </p>
+            </div>
+
+            <div>
+                <a asp-action="Edit"
+                   asp-route-id="@Model.PatientId"
+                   class="btn hms-btn hms-btn-primary">
+                    Edit Patient
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary hms-btn ms-2">
+                    Back
+                </a>
+            </div>
+        </div>
+
+        <div class="hms-card">
+            <div class="hms-card-header">
+                <h4 class="mb-0">@Model.FullName</h4>
+            </div>
+
+            <div class="hms-card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Full Name</div>
+                            <div class="hms-info-value">@Model.FullName</div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Date of Birth</div>
+                            <div class="hms-info-value">
+                                @Model.DateOfBirth.ToString("dd MMMM yyyy")
+                            </div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Gender</div>
+                            <div class="hms-info-value">@Model.Gender</div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Blood Group</div>
+                            <div class="hms-info-value">
+                                @(Model.BloodGroup ?? "Not provided")
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Phone</div>
+                            <div class="hms-info-value">@Model.Phone</div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Email</div>
+                            <div class="hms-info-value">
+                                @(Model.Email ?? "Not provided")
+                            </div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Address</div>
+                            <div class="hms-info-value">
+                                @(Model.Address ?? "Not provided")
+                            </div>
+                        </div>
+
+                        <div class="hms-info-item">
+                            <div class="hms-info-label">Emergency Contact</div>
+                            <div class="hms-info-value">
+                                @(Model.EmergencyContact ?? "Not provided")
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
